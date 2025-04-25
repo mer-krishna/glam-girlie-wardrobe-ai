@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import ProductCard from "../components/ProductCard";
+import ImageSearch from "../components/ImageSearch";
 import { Search as SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import products from "../data/products";
@@ -34,21 +35,27 @@ const Search = () => {
             Search Products
           </h1>
           
-          <form onSubmit={handleSearch} className="relative">
-            <Input
-              type="text"
-              placeholder="Search for products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 py-6 border-lavender-200 focus:border-barbie-300 focus:ring-barbie-300"
-            />
-            <button
-              type="submit"
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            >
-              <SearchIcon size={18} />
-            </button>
-          </form>
+          <div className="space-y-4">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="text"
+                placeholder="Search for products..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 py-6 border-lavender-200 focus:border-barbie-300 focus:ring-barbie-300"
+              />
+              <button
+                type="submit"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+              >
+                <SearchIcon size={18} />
+              </button>
+            </form>
+            
+            <div className="flex justify-center">
+              <ImageSearch />
+            </div>
+          </div>
         </div>
 
         {hasSearched && (
