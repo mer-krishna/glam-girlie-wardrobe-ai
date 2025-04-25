@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,6 +53,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Custom colors for our girly theme
+				barbie: {
+					100: '#FFDEE2', // soft pink
+					200: '#FFB6C1', // light pink
+					300: '#FF69B4', // hot pink
+					400: '#D946EF', // magenta pink
+				},
+				lavender: {
+					100: '#E5DEFF', // soft purple
+					200: '#D6BCFA', // light purple
+					300: '#9B87F5', // medium purple
+					400: '#7E69AB', // deeper purple
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -67,6 +81,11 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			fontFamily: {
+				'quicksand': ['Quicksand', 'sans-serif'],
+				'pacifico': ['Pacifico', 'cursive'],
+				'nunito': ['Nunito', 'sans-serif']
 			},
 			keyframes: {
 				'accordion-down': {
@@ -84,11 +103,36 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				shimmer: {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				},
+				float: {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				pulse: {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
+				},
+				scale: {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.05)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				shimmer: 'shimmer 3s linear infinite',
+				float: 'float 3s ease-in-out infinite',
+				pulse: 'pulse 2s ease-in-out infinite',
+				scale: 'scale 2s ease-in-out infinite'
+			},
+			backgroundImage: {
+				'glitter-gradient': 'linear-gradient(90deg, transparent, #FF69B4, transparent)',
+				'sparkle-pattern': 'radial-gradient(circle, #fff 10%, transparent 10%)',
+				'pastel-gradient': 'linear-gradient(to right, #FFB6C1, #D6BCFA, #B8E6FF)'
 			}
 		}
 	},
