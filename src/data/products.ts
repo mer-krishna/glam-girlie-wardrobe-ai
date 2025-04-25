@@ -1,23 +1,5 @@
 import { Product } from "../contexts/StoreContext";
 
-// Updated product interface to include reviews
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  category: string;
-  fabric: string;
-  sizes: string[];
-  colors: string[];
-  description: string;
-  reviews: {
-    rating: number;
-    count: number;
-  };
-  discount?: number;
-}
-
 const products: Product[] = [
   {
     id: 1,
@@ -134,15 +116,12 @@ const products: Product[] = [
 export default products;
 
 export const getSuggestedProducts = (currentProductId: number, category: string): Product[] => {
-  // First try to find products in the same category
   const sameCategory = products.filter(p => p.category === category && p.id !== currentProductId);
   
-  // If we have enough products in the same category, return a random selection
   if (sameCategory.length >= 4) {
     return sameCategory.sort(() => 0.5 - Math.random()).slice(0, 4);
   }
   
-  // Otherwise, include products from other categories to reach 4 suggestions
   const otherProducts = products.filter(p => p.category !== category && p.id !== currentProductId);
   return [...sameCategory, ...otherProducts]
     .sort(() => 0.5 - Math.random())

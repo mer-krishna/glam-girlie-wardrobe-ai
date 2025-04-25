@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -12,6 +11,11 @@ export interface Product {
   sizes: string[];
   colors: string[];
   description: string;
+  reviews: {
+    rating: number;
+    count: number;
+  };
+  discount?: number;
 }
 
 interface CartItem {
@@ -40,16 +44,13 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [favorites, setFavorites] = useState<Product[]>([]);
   const [cartTotal, setCartTotal] = useState(0);
 
-  // Calculate cart total when cart changes
   useEffect(() => {
     const total = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
     setCartTotal(total);
   }, [cart]);
 
-  // Add to cart function
   const addToCart = (product: Product, quantity: number, size: string, color: string) => {
     setCart(prevCart => {
-      // Check if product already exists in cart
       const existingItem = prevCart.find(
         item => 
           item.product.id === product.id && 
@@ -58,7 +59,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       );
 
       if (existingItem) {
-        // Update quantity if product already in cart
         return prevCart.map(item => 
           item.product.id === product.id && 
           item.selectedSize === size && 
@@ -67,7 +67,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             : item
         );
       } else {
-        // Add new item to cart
         return [...prevCart, { product, quantity, selectedSize: size, selectedColor: color }];
       }
     });
@@ -75,13 +74,11 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     toast.success(`${product.name} added to cart!`);
   };
 
-  // Remove from cart function
   const removeFromCart = (productId: number) => {
     setCart(prevCart => prevCart.filter(item => item.product.id !== productId));
     toast.info("Item removed from cart");
   };
 
-  // Update cart quantity function
   const updateCartQuantity = (productId: number, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(productId);
@@ -97,7 +94,6 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
   };
 
-  // Toggle favorite function
   const toggleFavorite = (product: Product) => {
     setFavorites(prevFavorites => {
       const isAlreadyFavorite = prevFavorites.some(fav => fav.id === product.id);
@@ -112,12 +108,10 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     });
   };
 
-  // Check if product is in favorites
   const isInFavorites = (productId: number) => {
     return favorites.some(fav => fav.id === productId);
   };
 
-  // Clear cart function
   const clearCart = () => {
     setCart([]);
     toast.success("Cart cleared!");
